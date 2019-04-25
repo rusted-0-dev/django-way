@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>{{title}}</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+
+    <body style="padding: 12.5%" >
+        <h2>Upload Excel Sheet</h2>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <input type="file" name="input-excel">
+            <button type="button" id="download">Download</button>
+            <hr style="margin-left: -5px; width: 255px">
+            <input type="submit" value="submit" class="submit-btn">
+        </form>
+    </body>
+</html>
+
+<style>
+
+body {
+    font-family: sans-serif;
+}
+
+form {
+    width: 400px;
+    height: 200px;
+}
+
+.submit-btn {
+    display: block;
+    position: relative;
+    left: 45%;
+}
+
+</style>
+
+<script> 
+$(document).ready(function(){
+    $('#download').click(function () {
+        $.ajax({
+            url: location.origin + '/api/downloadExcel', 
+            method: 'GET'
+        })
+    });
+})
+</script>
