@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect
 # to get the FileField for the html. 
 from django import forms
 # to use the excel
@@ -79,9 +80,10 @@ class UploadExcel(View):
     # return excel.make_response(, file_type='xlsx', file_name='output-excel.xlsx')
 
 def downloadExcel(request):
-    file_name = 'output-excel.xslx'
-    print(settings.MEDIA_ROOT, 'asdfasdfasdf')
-    with open(file_name, 'rb') as fh:
-        response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
-        response['Content-Disposition'] = 'inline; filename=' + file_name
-        return response
+    file_path = 'output-excel.xlsx'
+    if (os.path.exists(file_path)):
+        with open(file_path, 'rb') as fh:
+            data = fh.read()
+            response = HttpResponse(data, content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'attachment; filename=' + file_path
+            return response

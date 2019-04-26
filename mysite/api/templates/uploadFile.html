@@ -9,7 +9,9 @@
         <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <input type="file" name="input-excel">
-            <button type="button" id="download">Download</button>
+            <button type="button" id="download">
+                <a href="http://localhost:8000/api/downloadExcel">Download</a>
+            </button>
             <hr style="margin-left: -5px; width: 255px">
             <input type="submit" value="submit" class="submit-btn">
         </form>
@@ -34,14 +36,3 @@ form {
 }
 
 </style>
-
-<script> 
-$(document).ready(function(){
-    $('#download').click(function () {
-        $.ajax({
-            url: location.origin + '/api/downloadExcel', 
-            method: 'GET'
-        })
-    });
-})
-</script>
